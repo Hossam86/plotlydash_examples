@@ -1,6 +1,3 @@
-
-from statistics import mode
-from tokenize import group
 from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
