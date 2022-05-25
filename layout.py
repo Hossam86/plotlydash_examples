@@ -44,7 +44,29 @@ layout2 = [html.H1(children='Hello Dash', style={'textAlign': 'center', 'color':
                     style={'textAlign': 'center', 'color': colors['text']}),
            dcc.Graph(id='example-graph2', figure=fig)]
 
-layout = layout1 + layout2
+
+# one of powerful thing in dash is that we writing our html markup in Python ,
+# we can create complex reusable components like tables without switching contexts or languages
+# wrapping html tags in html dash commponts help us to create complex reusable components
+# like tables without switching contexts or languages.
+
+def generate_table(dataframe, max_rows=10):
+    return html.Table([
+        html.Thead(
+            html.Tr([html.Th(col) for col in dataframe.columns])
+        ),
+        html.Tbody([
+            html.Tr([
+                html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
+            ]) for i in range(min(len(dataframe), max_rows))
+        ])
+    ])
+
+
+df = pd.read_csv('data_resources/usa-agricultural-exports-2011.csv')
+layout3 = [html.H4(children='US Agriculture Exports (2011)'), generate_table(df)]
+
+layout = layout1 + layout2 + layout3
 
 app.layout = html.Div(children=layout)
 if __name__ == '__main__':
