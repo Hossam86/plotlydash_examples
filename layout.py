@@ -111,3 +111,14 @@ layout = layout1 + layout2 + layout3 + layout4 + layout5
 app.layout = html.Div(children=layout)
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+
+# Summary
+# The layout of a Dash app describes what the app looks like. The layout is a hierarchical tree of components.
+# Dash HTML Components (dash.html) provides classes for all of the HTML tags and the keyword arguments
+# describe the HTML attributes like style, class, and id. Dash Core Components (dash.dcc) generates higher-level components like controls and graphs.
+#
+# For reference, see:
+# Dash Core Components Gallery
+# Dash HTML Components Gallery
+# The next part of the Dash tutorial covers how to make these apps --> Basic Callbacks
