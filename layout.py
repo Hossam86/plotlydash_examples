@@ -24,7 +24,8 @@ df = pd.DataFrame({
     "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
 })
 
-# plotly express figure -- you can use any plotly figure check plotly.js docs
+# The Dash Core Components module (dash.dcc) includes a component called Graph.
+# Graph renders interactive data visualizations using the open source plotly.js JavaScript graphing
 fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 # simple layout as list of html components(H1,p, ) and dash core components(plotly graph)
