@@ -67,7 +67,51 @@ def generate_table(dataframe, max_rows=10):
 df = pd.read_csv('data_resources/usa-agricultural-exports-2011.csv')
 layout3 = [html.H4(children='US Agriculture Exports (2011)'), generate_table(df)]
 
-layout = layout1 + layout2 + layout3
+# Dash Core Components (dash.dcc) includes a set of higher-level components like dropdowns, graphs, markdown blocks,
+# and more.# Like all Dash components, they are described entirely declaratively. Every option that is configurable
+# is available as a keyword argument of the component.
+
+df = pd.read_csv('data_resources/gdp-life-exp-2007.csv')
+# plotly figure
+figure = fig = px.scatter(df, x="gdp per capita", y="life expectancy", size="population",
+                          color="continent", hover_name="country", log_x=True, size_max=60)
+
+layout4 = [html.Div(children=dcc.Graph(figure=figure, id='graph_example'))]
+
+# You can view all of the available components in the Dash Core Components Gallery.
+# Dropdown - single
+dropdown_single = [html.Label('Dropdown'), dcc.Dropdown(['New York City', 'Montréal', 'San Francisco'], 'Montréal')]
+
+# Dropdown - multiselect
+dropdown_multi = [html.Br(), html.Label('Multi-Select Dropdown'),
+                  dcc.Dropdown(['New York City', 'Montréal', 'San Francisco'],
+                               ['Montréal', 'San Francisco'], multi=True)]
+
+radio_button = [html.Br(), html.Label('Radio Items'),
+                dcc.RadioItems(['New York City', 'Montréal', 'San Francisco'], 'Montréal'), html.Br()]
+
+# we can wrap all bove in one block  (html.Div) to control the style
+
+column1 = [html.Div(children=dropdown_single + dropdown_multi + radio_button,
+                    style={'padding': 10, 'flex': 1})]
+
+# checkbox
+checkbox = [html.Br(), html.Label('Checkboxes'),
+            dcc.Checklist(['New York City', 'Montréal', 'San Francisco'], ['Montréal', 'San Francisco'])]
+
+#  Text input
+text = [html.Br(), html.Label('Text Input'), dcc.Input(value='MTL', type='text')]
+
+slider = [html.Br(), html.Div([html.Label('Slider'),
+                               dcc.Slider(min=0, max=9,
+                                          marks={i: f'Label {i}' if i == 1 else str(i) for i in range(1, 6)},
+                                          value=5)])]
+
+column2 = [html.Div(children=checkbox + text + slider, style={'padding': 10, 'flex': 1})]
+
+layout5 = [html.Div(children=column1 + column2, style={'display': 'flex', 'flex-direction': 'row'})]
+
+layout = layout1 + layout2 + layout3 + layout4 + layout5
 
 app.layout = html.Div(children=layout)
 if __name__ == '__main__':
