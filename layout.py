@@ -90,11 +90,6 @@ dropdown_multi = [html.Br(), html.Label('Multi-Select Dropdown'),
 radio_button = [html.Br(), html.Label('Radio Items'),
                 dcc.RadioItems(['New York City', 'Montréal', 'San Francisco'], 'Montréal'), html.Br()]
 
-# we can wrap all bove in one block  (html.Div) to control the style
-
-column1 = [html.Div(children=dropdown_single + dropdown_multi + radio_button,
-                    style={'padding': 10, 'flex': 1})]
-
 # checkbox
 checkbox = [html.Br(), html.Label('Checkboxes'),
             dcc.Checklist(['New York City', 'Montréal', 'San Francisco'], ['Montréal', 'San Francisco'])]
@@ -106,9 +101,9 @@ slider = [html.Br(), html.Div([html.Label('Slider'),
                                dcc.Slider(min=0, max=9,
                                           marks={i: f'Label {i}' if i == 1 else str(i) for i in range(1, 6)},
                                           value=5)])]
-
+#  wrap above in two column view
+column1 = [html.Div(children=dropdown_single + dropdown_multi + radio_button, style={'padding': 10, 'flex': 1})]
 column2 = [html.Div(children=checkbox + text + slider, style={'padding': 10, 'flex': 1})]
-
 layout5 = [html.Div(children=column1 + column2, style={'display': 'flex', 'flex-direction': 'row'})]
 
 layout = layout1 + layout2 + layout3 + layout4 + layout5
